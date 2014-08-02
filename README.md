@@ -8,7 +8,8 @@ Simple AngularJS service and directives for detecting when a user has stopped an
 Have a look at both of them in action , [demo here](http://hogg.io/projects/angular-scrollstop/demo/). 
 
 #### Install
-Bower: bower install angular-scrollstop
+Bower: 
+> bower install angular-scrollstop
 
 #### Contributions
 This is my first attempt at a public re-usuable component so I'm bound to have made some msitakes somewhere. All contributions are very much welcome :smile: but please remember to edit the src files. I haven't got round to writing the unit tests yet so don't worry about checking them.
