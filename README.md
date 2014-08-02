@@ -1,4 +1,3 @@
-=======
 angular-scrollstop
 ==================
 
@@ -9,15 +8,17 @@ Have a look at both of them in action , [demo here](http://hogg.io/projects/angu
 
 #### Install
 Bower: 
-> bower install angular-scrollstop
+    $ bower install angular-scroll
 
-#### Contributions
-This is my first attempt at a public re-usuable component so I'm bound to have made some mistakes somewhere. All contributions are very much welcome :smile: but please remember to edit the src files.
+Remeber to add `hg.scrollstop` to your module dependencies :wink: 
 
-## Service
+Service `hgScrollEvent`
+-----------------------
 The `hgScrollEvent` service provides two functions; scrollstart and scrollstop. Each can execute a callback and broadcast an event down the scope of the element the event is attached to. 
 
-#### Usage
+### `.scrollstop([element [, callback] ]);`
+### `.scrollstart([element [, callback] ]);`
+
 Pass an element as the first argument to attach the scroll event to, and a callback function as the second argument.
 
 ```js
@@ -54,15 +55,21 @@ Just listen for the event like you would with any other, with the angular event,
 });
 ```
 
-## Directives
+Directives
+----------
 Two directives are provided to easily use the scrollstop and start events on elements. The events are binded to the element they are used on and can be provided (or not) a callback function. 
 
-#### Usage
-
+### `hg-scrollstart`
 ```html
 <body hg-scrollstart="foo()"></body>
+```
 
+### `hg-scrollstop`
+```html
 <div hg-scrollstop="bar()"></div>
 ```
 
-Simples... 
+
+Contributions
+-------------
+This is my first attempt at a public re-usuable component so I'm bound to have made some mistakes somewhere. All contributions are very much welcome :smile: but please remember to edit the src files.
