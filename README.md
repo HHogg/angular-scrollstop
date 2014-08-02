@@ -12,15 +12,13 @@ Bower:
 > bower install angular-scrollstop
 
 #### Contributions
-This is my first attempt at a public re-usuable component so I'm bound to have made some msitakes somewhere. All contributions are very much welcome :smile: but please remember to edit the src files. I haven't got round to writing the unit tests yet so don't worry about checking them.
+This is my first attempt at a public re-usuable component so I'm bound to have made some mistakes somewhere. All contributions are very much welcome :smile: but please remember to edit the src files.
 
 ## Service
-The event service provides two functions; scrollstart and scrollstop. Each can execute a callback and broadast and event down the scope of the element the event is attached to. 
+The `hgScrollEvent` service provides two functions; scrollstart and scrollstop. Each can execute a callback and broadcast an event down the scope of the element the event is attached to. 
 
 #### Usage
-Include `hg.scrollStop` as a dependency.
-
- You can pass an element as the first argument to attach the scroll event to, and a callback function as the second argument.
+Pass an element as the first argument to attach the scroll event to, and a callback function as the second argument.
 
 ```js
 hgScrollEvent.scrollstop(element, function() {
@@ -28,7 +26,7 @@ hgScrollEvent.scrollstop(element, function() {
 });
 ```
 
-You can just pass a callback function and the event will be attached to `$document`
+... or just pass a callback function and the event will be attached to `$document`
 
 ```js
 hgScrollEvent.scrollstop(function() {
@@ -36,19 +34,19 @@ hgScrollEvent.scrollstop(function() {
 });
 ```
 
-You can just pass an element and it will broadcast the event down the scope and perform no callback. 
+... or just pass an element and it will broadcast the event down the scope and perform no callback. 
 
 ```js
 hgScrollEvent.scrollstop(element);
 ```
 
-Or you can supply no arguments to broadcast the event when the document is scrolled. 
+... or supply no arguments to broadcast the event when the document is scrolled. 
 
 ```js
 hgScrollEvent.scrollstop();
 ```
 
-Just listen for the event like you would with any other, with the angular event, scroll event, and the attached elment provided. 
+Just listen for the event like you would with any other, with the angular event, scroll event, and the attached elment provided in the callback. 
 
 ```js
 ($)scope.$on('scrollstop', function(ngEvent, scrollEvent, attachedElement) {
