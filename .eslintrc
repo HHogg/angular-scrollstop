@@ -1,0 +1,41 @@
+{
+  // 2 will report an error, meaning the eslint grunt task will fail.
+  // 1 will report a warning, but will not cause the task to fail.
+  // All rules that are set to 0 are off.
+  "rules": {
+    "no-caller": 2,
+    "strict": 0,
+    "new-cap": 1,
+    "no-alert": 2,
+    "max-len": [2, 80, 2],
+    "quotes": [2, "single"],
+    "camelcase": 1,
+    "wrap-iife": [2, "inside"],
+    "valid-typeof": 2,
+    "valid-jsdoc": [2, { "requireReturn": false }],
+    "curly": [0, "multi"],
+    "no-use-before-define": 0,
+    "no-new": 0,
+    "no-return-assign": 0,
+    "no-underscore-dangle": 0,
+  },
+  "globals": {
+    // Used in both
+    "window": false,
+    "document": false,
+    "angular": false,
+    "module": false,
+
+    // Used in tests
+    "jasmine": false,
+    "spyOn": false,
+    "describe": false,
+    "beforeEach": false,
+    "inject": false,
+    "module": false,
+    "it": false,
+    "by": false,
+    "browser": false,
+    "expect": false,
+  }
+}

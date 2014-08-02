@@ -1,0 +1,29 @@
+{
+  "name": "angular-scrollstop",
+  "version": "0.1.0",
+  "description": "AngularJS, scrollstop and scroll start events. Optional directives.",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "scrollstop",
+    "scrollstart",
+    "scrolling",
+    "scroll event"
+  ],
+  "main": "dist/angular-scrollstop.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github@github.com:hhogg/angular-scrollstop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hhogg/angular-scrollstop/issues"
+  },
+  "author": "Harrison Hogg (http://hogg.io/)",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-uglify": "0.4.x",
+    "grunt-contrib-watch": "0.6.x",
+    "grunt-ng-annotate": "0.3.0"
+  }
+}

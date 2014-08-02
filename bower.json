@@ -1,0 +1,10 @@
+{
+  "name": "angular-scrollstop",
+  "version": "0.1.0",
+  "main": "dist/angular-scrollstop.js",
+  "ignore": [
+    ".eslintrc",
+    ".gitignore",
+    "Gruntfile.js"
+  ]
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="scrollTest">
+<head>
+	<title>AngularJS ScrollStop/ScrollStart Service/Directives</title>
+  <link rel="stylesheet" type="text/css" href="vendors/bootstrap-css-only/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-controller="scrollTestCtrl">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <h4>Scroll events cought from the service.</h4>
+        <div class="hg-cont full-cont"
+             event-test>
+          <p ng-repeat="n in [] | range:20">{{ textContent }}</p>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <h4>Scroll callbacks from the attribute on this element.</h4>
+        <div class="hg-cont scroll-cont"
+             scroll-test
+             hg-scrollstart="scrollStart();"
+             hg-scrollstop="scrollStop();">
+          <p ng-repeat="n in [] | range:20">{{ textContent }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
+  <script type="text/javascript" src="../../dist/angular-scrollstop.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
