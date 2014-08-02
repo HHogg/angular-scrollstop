@@ -45,7 +45,7 @@ hgScrollEvent.scrollstop(element);
 Or you can supply no arguments to broadcast the event when the document is scrolled. 
 
 ```js
-hgScrollEvent.scrollstop(element);
+hgScrollEvent.scrollstop();
 ```
 
 Just listen for the event like you would with any other, with the angular event, scroll event, and the attached elment provided. 
