@@ -18,6 +18,8 @@ This is my first attempt at a public re-usuable component so I'm bound to have m
 The event service provides two functions; scrollstart and scrollstop. Each can execute a callback and broadast and event down the scope of the element the event is attached to. 
 
 #### Usage
+Include `hg.scrollStop` as a dependency.
+
  You can pass an element as the first argument to attach the scroll event to, and a callback function as the second argument.
 
 ```js
