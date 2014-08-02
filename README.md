@@ -1,4 +1,6 @@
-# angular-scrollstop
+=======
+angular-scrollstop
+==================
 
 Simple AngularJS service and directives for detecting when a user has stopped and started scrolling.
 
@@ -63,4 +65,3 @@ Two directives are provided to easily use the scrollstop and start events on ele
 ```
 
 Simples... 
-
