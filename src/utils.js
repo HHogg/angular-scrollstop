@@ -16,7 +16,7 @@ angular.module('hg.scrollStop.utils', [ ])
    * @description
    * Utility service providing helper methods.
    */
-  .service('hgUtils', function($document) {
+  .service('hgUtils', function($rootScope, $document) {
 
     /**
      * @doc method
@@ -38,7 +38,7 @@ angular.module('hg.scrollStop.utils', [ ])
      */
     this.checkParams = function(element, fn) {
       element = element || $document;
-      if (typeof element === 'function' && !fn) {
+      if (typeof element === 'function') {
         fn = element;
         element = $document;
       } else if (!fn){
@@ -47,6 +47,7 @@ angular.module('hg.scrollStop.utils', [ ])
 
       return {
         element: element,
+        scope: element.scope() || $rootScope,
         fn: fn
       };
     };

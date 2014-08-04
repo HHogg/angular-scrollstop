@@ -102,8 +102,8 @@ angular.module('hg.scrollStop.events', [ ])
 
       // Params
       element = params.element;
-      scope = element.scope();
       fn = params.fn;
+      scope = params.scope;
 
       // Unbind function.
       unbindFn = function() {
@@ -153,8 +153,8 @@ angular.module('hg.scrollStop.events', [ ])
 
       // Params
       element = params.element;
-      scope = element.scope();
       fn = params.fn;
+      scope = params.scope;
 
       // Unbind function.
       unbindFn = function() {

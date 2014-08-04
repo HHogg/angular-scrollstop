@@ -1,7 +1,11 @@
 {
   "name": "angular-scrollstop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/angular-scrollstop.js",
+  "authors": [
+    "Harrison Hogg (http://hogg.io/)"
+  ],
+  "license": "MIT",
   "ignore": [
     ".eslintrc",
     ".gitignore",
