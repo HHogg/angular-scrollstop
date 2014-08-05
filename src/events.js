@@ -124,7 +124,7 @@ angular.module('hg.scrollStop.events', [ ])
         }, hgScrollLatency.start);
 
         // Remove the event when scope is destroyed.
-        scope.$on('destroy', unbindFn);
+        scope.$on('$destroy', unbindFn);
       };
 
       // Kick it off.
@@ -172,7 +172,7 @@ angular.module('hg.scrollStop.events', [ ])
         }, hgScrollLatency.stop);
 
         // Remove the event when scope is destroyed.
-        scope.$on('destroy', unbindFn);
+        scope.$on('$destroy', unbindFn);
       };
 
       // Kick it off.
