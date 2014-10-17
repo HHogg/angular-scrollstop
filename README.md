@@ -4,7 +4,7 @@ angular-scrollstop
 Simple AngularJS service and directives for detecting when a user has stopped and started scrolling.
 
 #### Demo
-Have a look at both of them in action , [demo here](http://hogg.io/projects/angular-scrollstop/demo/). 
+Have a look at both of them in action , [demo here](http://htmlpreview.github.io/?https://github.com/HHogg/angular-scrollstop/blob/master/demo/index.html). 
 
 #### Install
 Bower: 
