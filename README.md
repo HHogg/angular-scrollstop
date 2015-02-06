@@ -10,7 +10,7 @@ Have a look at both of them in action , [demo here](http://htmlpreview.github.io
 Bower: 
     $ bower install angular-scroll
 
-Remeber to add `hg.scrollstop` to your module dependencies :wink: 
+Remeber to add `hg.scrollStop` to your module dependencies :wink: 
 
 Service `hgScrollEvent`
 -----------------------
