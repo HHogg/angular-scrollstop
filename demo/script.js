@@ -5,16 +5,21 @@ angular.module('scrollTest', [
   // Scroll box test diretive.
   .directive('scrollTest', function() {
     return {
-      link: function(scope, element, attributes) {
+      scope: true,
+      link: function(scope) {
+
+        scope.state = {
+          scrolling: false
+        };
 
         // Directive usage. See HTML element attributes.
         scope.scrollStart = function(event) {
-          attributes.$addClass('scrolling');
+          scope.state.scrolling = true;
           console.log('Box: Scroll started in direction: ' + event.direction);
         };
 
         scope.scrollStop = function(event) {
-          attributes.$removeClass('scrolling');
+          scope.state.scrolling = false;
           console.log('Box: Scroll stopped in direction: ' + event.direction);
         };
       }
@@ -24,15 +29,20 @@ angular.module('scrollTest', [
   // Scroll window test diretive.
   .directive('eventTest', function() {
     return {
-      link: function(scope, element, attributes) {
+      scope: true,
+      link: function(scope) {
+
+        scope.state = {
+          scrolling: false
+        };
 
         // Event usage.
         scope.$on('scrollstart', function() {
-          attributes.$addClass('scrolling');
+          scope.state.scrolling = true;
         });
 
         scope.$on('scrollstop', function() {
-          attributes.$removeClass('scrolling');
+          scope.state.scrolling = false;
         });
       }
     };

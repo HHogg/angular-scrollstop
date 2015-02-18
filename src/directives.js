@@ -74,7 +74,6 @@ angular.module('hg.scrollStop.directives', [
   .directive('hgScrollstop', function($parse, hgScrollEvent) {
     return {
       restrict: 'A',
-      scope: true,
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstop);
 

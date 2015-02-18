@@ -14,14 +14,6 @@ body {
   border: 1px solid #333333;
 }
 
-.hg-cont.notice-cont {
-
-}
-
-.hg-cont.full-cont {
-
-}
-
 .hg-cont.scroll-cont {
   max-height: 600px;
   overflow: auto;

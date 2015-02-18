@@ -129,8 +129,11 @@ angular.module('hg.scrollStop.events', [
           $timeout.cancel(timer);
         } else {
           event = new HgEvent(eventData);
-          fn(event);
-          scope.$broadcast(eventData.name, event);
+
+          scope.$apply(function() {
+            fn(event);
+            scope.$broadcast(eventData.name, event);
+          });
         }
 
         timer = $timeout(function() {
@@ -192,9 +195,12 @@ angular.module('hg.scrollStop.events', [
           timer = null;
           eventData.end = hgUtils.getScrollTop(element);
           event = new HgEvent(eventData);
-          fn(event);
-          scope.$broadcast(eventData.name, event);
           eventData.start = null;
+
+          scope.$apply(function() {
+            fn(event);
+            scope.$broadcast(eventData.name, event);
+          });
         }, hgScrollLatency.stop);
 
         // Remove the event when scope is destroyed.
