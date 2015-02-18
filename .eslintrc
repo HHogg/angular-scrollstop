@@ -25,6 +25,7 @@
     "document": false,
     "angular": false,
     "module": false,
+    "HTMLDocument": false,
 
     // Used in tests
     "jasmine": false,

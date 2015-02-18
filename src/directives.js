@@ -5,7 +5,10 @@
  * @description
  * Module containing the directives for the scrollstart and stop functionality.
  */
-angular.module('hg.scrollStop.directives', [ ])
+angular.module('hg.scrollStop.directives', [
+  'hg.scrollStop.events'
+])
+
 
   /**
    * @ngdoc directive
@@ -35,6 +38,7 @@ angular.module('hg.scrollStop.directives', [ ])
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstart);
 
+
         hgScrollEvent.scrollstart(element, function(event) {
           fn(scope, {
             event: event
@@ -43,6 +47,7 @@ angular.module('hg.scrollStop.directives', [ ])
       }
     };
   })
+
 
   /**
    * @ngdoc directive
@@ -72,6 +77,7 @@ angular.module('hg.scrollStop.directives', [ ])
       scope: true,
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstop);
+
 
         hgScrollEvent.scrollstop(element, function(event) {
           fn(scope, {

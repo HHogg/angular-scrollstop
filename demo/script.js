@@ -8,14 +8,14 @@ angular.module('scrollTest', [
       link: function(scope, element, attributes) {
 
         // Directive usage. See HTML element attributes.
-        scope.scrollStart = function() {
+        scope.scrollStart = function(event) {
           attributes.$addClass('scrolling');
-          console.log('Box: Scroll started');
+          console.log('Box: Scroll started in direction: ' + event.direction);
         };
 
-        scope.scrollStop = function() {
+        scope.scrollStop = function(event) {
           attributes.$removeClass('scrolling');
-          console.log('Box: Scroll stopped');
+          console.log('Box: Scroll stopped in direction: ' + event.direction);
         };
       }
     };
@@ -41,12 +41,12 @@ angular.module('scrollTest', [
   .controller('scrollTestCtrl', function($scope, hgScrollEvent) {
 
     // Service usage.
-    hgScrollEvent.scrollstart(function() {
-      console.log('Window: Scroll started');
+    hgScrollEvent.scrollstart(function(event) {
+      console.log('Window: Scroll started in direction: ' + event.direction);
     });
 
-    hgScrollEvent.scrollstop(function() {
-      console.log('Window: Scroll stopped');
+    hgScrollEvent.scrollstop(function(event) {
+      console.log('Window: Scroll stopped in direction: ' + event.direction);
     });
 
     // Filler contnet

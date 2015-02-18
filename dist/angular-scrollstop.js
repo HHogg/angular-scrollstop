@@ -22,6 +22,7 @@ angular.module('hg.scrollStop', [
  */
 angular.module('hg.scrollStop.utils', [ ])
 
+
   /**
    * @ngdoc service
    * @name hg.scrollStop.utils:hgUtils
@@ -66,6 +67,46 @@ angular.module('hg.scrollStop.utils', [ ])
         fn: fn
       };
     };
+
+
+    /**
+     * @doc method
+     * @methodOf hg.scrollStop.utils:hgUtils
+     * @name standardEl
+     *
+     * @description
+     * Extracts HTMLElement if a JQLite.
+     *
+     * @param {JQLite|HTMLElement} element HTMLElement or JQLite.
+     *
+     * @returns {HTMLElement} Extracted HTMLElement.
+     */
+    this.standardEl = function(element) {
+      return element.prop && element.attr && element.find
+        ? element[0]
+        : element;
+    };
+
+
+    /**
+     * @doc method
+     * @methodOf hg.scrollStop.utils:hgUtils
+     * @name getScrollTop
+     *
+     * @description
+     * Returns the current scroll position
+     *
+     * @param {JQLite} element JQLite
+     *
+     * @returns {Number} Current scroll top position of the element.
+     */
+    this.getScrollTop = function(element) {
+      var el = this.standardEl(element);
+
+      return el instanceof HTMLDocument
+        ? (el.body.scrollTop || 0)
+        : (el.scrollTop || 0);
+    };
   }]);
 
 /**
@@ -75,7 +116,10 @@ angular.module('hg.scrollStop.utils', [ ])
  * @description
  * Module containing the service for the scrollstop and start functions.
  */
-angular.module('hg.scrollStop.events', [ ])
+angular.module('hg.scrollStop.events', [
+  'hg.scrollStop.utils'
+])
+
 
   /**
    * @ngdoc constant
@@ -88,6 +132,7 @@ angular.module('hg.scrollStop.events', [ ])
     start: 150,
     stop: 150
   })
+
 
   /**
    * @ngdoc service
@@ -180,7 +225,7 @@ angular.module('hg.scrollStop.events', [ ])
       // Event
       eventData.name = 'scrollstart';
       eventData.target = element;
-      eventData.start = element[0].scrollTop || 0;
+      eventData.start = hgUtils.getScrollTop(element);
 
       // Unbind function.
       unbindFn = function() {
@@ -189,7 +234,7 @@ angular.module('hg.scrollStop.events', [ ])
 
       // Bind function.
       bindFn = function() {
-        eventData.end = element[0].scrollTop;
+        eventData.end = hgUtils.getScrollTop(element);
 
         if (timer) {
           $timeout.cancel(timer);
@@ -211,6 +256,7 @@ angular.module('hg.scrollStop.events', [ ])
       // Kick it off.
       element.bind('scroll', bindFn);
     };
+
 
     /**
      * @doc method
@@ -251,11 +297,11 @@ angular.module('hg.scrollStop.events', [ ])
       // Bind function.
       bindFn = function() {
         if (timer) $timeout.cancel(timer);
-        eventData.start = eventData.start || element[0].scrollTop;
+        eventData.start = eventData.start || hgUtils.getScrollTop(element);
 
         timer = $timeout(function() {
           timer = null;
-          eventData.end = element[0].scrollTop;
+          eventData.end = hgUtils.getScrollTop(element);
           event = new HgEvent(eventData);
           fn(event);
           scope.$broadcast(eventData.name, event);
@@ -270,6 +316,7 @@ angular.module('hg.scrollStop.events', [ ])
       element.bind('scroll', bindFn);
     };
   }])
+
 
   /**
    * @ngdoc service
@@ -310,7 +357,10 @@ angular.module('hg.scrollStop.events', [ ])
  * @description
  * Module containing the directives for the scrollstart and stop functionality.
  */
-angular.module('hg.scrollStop.directives', [ ])
+angular.module('hg.scrollStop.directives', [
+  'hg.scrollStop.events'
+])
+
 
   /**
    * @ngdoc directive
@@ -340,6 +390,7 @@ angular.module('hg.scrollStop.directives', [ ])
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstart);
 
+
         hgScrollEvent.scrollstart(element, function(event) {
           fn(scope, {
             event: event
@@ -348,6 +399,7 @@ angular.module('hg.scrollStop.directives', [ ])
       }
     };
   }])
+
 
   /**
    * @ngdoc directive
@@ -377,6 +429,7 @@ angular.module('hg.scrollStop.directives', [ ])
       scope: true,
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstop);
+
 
         hgScrollEvent.scrollstop(element, function(event) {
           fn(scope, {

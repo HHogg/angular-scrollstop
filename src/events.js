@@ -5,7 +5,10 @@
  * @description
  * Module containing the service for the scrollstop and start functions.
  */
-angular.module('hg.scrollStop.events', [ ])
+angular.module('hg.scrollStop.events', [
+  'hg.scrollStop.utils'
+])
+
 
   /**
    * @ngdoc constant
@@ -18,6 +21,7 @@ angular.module('hg.scrollStop.events', [ ])
     start: 150,
     stop: 150
   })
+
 
   /**
    * @ngdoc service
@@ -110,7 +114,7 @@ angular.module('hg.scrollStop.events', [ ])
       // Event
       eventData.name = 'scrollstart';
       eventData.target = element;
-      eventData.start = element[0].scrollTop || 0;
+      eventData.start = hgUtils.getScrollTop(element);
 
       // Unbind function.
       unbindFn = function() {
@@ -119,7 +123,7 @@ angular.module('hg.scrollStop.events', [ ])
 
       // Bind function.
       bindFn = function() {
-        eventData.end = element[0].scrollTop;
+        eventData.end = hgUtils.getScrollTop(element);
 
         if (timer) {
           $timeout.cancel(timer);
@@ -141,6 +145,7 @@ angular.module('hg.scrollStop.events', [ ])
       // Kick it off.
       element.bind('scroll', bindFn);
     };
+
 
     /**
      * @doc method
@@ -181,11 +186,11 @@ angular.module('hg.scrollStop.events', [ ])
       // Bind function.
       bindFn = function() {
         if (timer) $timeout.cancel(timer);
-        eventData.start = eventData.start || element[0].scrollTop;
+        eventData.start = eventData.start || hgUtils.getScrollTop(element);
 
         timer = $timeout(function() {
           timer = null;
-          eventData.end = element[0].scrollTop;
+          eventData.end = hgUtils.getScrollTop(element);
           event = new HgEvent(eventData);
           fn(event);
           scope.$broadcast(eventData.name, event);
@@ -200,6 +205,7 @@ angular.module('hg.scrollStop.events', [ ])
       element.bind('scroll', bindFn);
     };
   })
+
 
   /**
    * @ngdoc service

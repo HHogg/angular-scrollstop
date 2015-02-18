@@ -7,6 +7,7 @@
  */
 angular.module('hg.scrollStop.utils', [ ])
 
+
   /**
    * @ngdoc service
    * @name hg.scrollStop.utils:hgUtils
@@ -50,5 +51,45 @@ angular.module('hg.scrollStop.utils', [ ])
         scope: element.scope() || $rootScope,
         fn: fn
       };
+    };
+
+
+    /**
+     * @doc method
+     * @methodOf hg.scrollStop.utils:hgUtils
+     * @name standardEl
+     *
+     * @description
+     * Extracts HTMLElement if a JQLite.
+     *
+     * @param {JQLite|HTMLElement} element HTMLElement or JQLite.
+     *
+     * @returns {HTMLElement} Extracted HTMLElement.
+     */
+    this.standardEl = function(element) {
+      return element.prop && element.attr && element.find
+        ? element[0]
+        : element;
+    };
+
+
+    /**
+     * @doc method
+     * @methodOf hg.scrollStop.utils:hgUtils
+     * @name getScrollTop
+     *
+     * @description
+     * Returns the current scroll position
+     *
+     * @param {JQLite} element JQLite
+     *
+     * @returns {Number} Current scroll top position of the element.
+     */
+    this.getScrollTop = function(element) {
+      var el = this.standardEl(element);
+
+      return el instanceof HTMLDocument
+        ? (el.body.scrollTop || 0)
+        : (el.scrollTop || 0);
     };
   });
