@@ -18,14 +18,13 @@ module.exports = function(grunt){
     uglify: {
       options: {
         banner: fileBanner,
-        compress: true,
         singleQuotes: true,
         sourceMap: true,
         sourceMapName: 'dist/angular-scrollstop.min.js.map'
       },
       app: {
         files: {
-          'dist/angular-scrollstop.min.js' : 'dist/angular-scrollstop.js'
+          'dist/angular-scrollstop.min.js': 'dist/angular-scrollstop.js'
         }
       }
     },
@@ -41,7 +40,7 @@ module.exports = function(grunt){
     },
     watch: {
       files: srcFiles,
-      tasks: ['ngAnnotate','uglify']
+      tasks: ['ngAnnotate', 'uglify']
     }
   });
 

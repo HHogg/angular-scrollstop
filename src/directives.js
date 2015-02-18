@@ -32,12 +32,13 @@ angular.module('hg.scrollStop.directives', [ ])
   .directive('hgScrollstart', function($parse, hgScrollEvent) {
     return {
       restrict: 'A',
-      scope: true,
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstart);
 
-        hgScrollEvent.scrollstart(element, function() {
-          fn(scope);
+        hgScrollEvent.scrollstart(element, function(event) {
+          fn(scope, {
+            event: event
+          });
         });
       }
     };
@@ -72,8 +73,10 @@ angular.module('hg.scrollStop.directives', [ ])
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstop);
 
-        hgScrollEvent.scrollstop(element, function() {
-          fn(scope);
+        hgScrollEvent.scrollstop(element, function(event) {
+          fn(scope, {
+            event: event
+          });
         });
       }
     };

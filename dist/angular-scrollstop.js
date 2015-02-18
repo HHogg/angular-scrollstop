@@ -95,6 +95,7 @@ angular.module('hg.scrollStop.events', [ ])
    *
    * @requires $rootScope
    * @requires $timeout
+   * @requires hg.scrollSop.events:HgEvent
    * @requires hg.scrollStop.utils:hgUtils
    * @requires hg.scrollStop.events:hgScrollLatency
    *
@@ -114,7 +115,7 @@ angular.module('hg.scrollStop.events', [ ])
    * ```
    *
    * You can just pass a callback function to one of the scroll methods and it
-   * will attach th event to $document.
+   * will attach the event to $document.
    *
    * ```js
    * hgScrollEvent.scrollstop(function() {
@@ -135,8 +136,8 @@ angular.module('hg.scrollStop.events', [ ])
    * hgScrollEvent.scrollstop();
    * ```
    *
-   * Using the events: Simply add a listenter to an element in the scope of the
-   * event being broadcasted. For example using the above method (with no
+   * Using the events: Simply add a listener to an element in the scope of the
+   * event being broadcast. For example using the above method (with no
    * paramters) add to any directive/controller:
    * ```js
    * ($)scope.$on('scrollstop', function() {
@@ -148,7 +149,7 @@ angular.module('hg.scrollStop.events', [ ])
    * elements.
    */
   .service('hgScrollEvent'
-      , ['$timeout', 'hgUtils', 'hgScrollLatency', function($timeout, hgUtils, hgScrollLatency) {
+      , ['$timeout', 'HgEvent', 'hgUtils', 'hgScrollLatency', function($timeout, HgEvent, hgUtils, hgScrollLatency) {
 
     /**
      * @doc method
@@ -168,12 +169,18 @@ angular.module('hg.scrollStop.events', [ ])
         , scope
         , timer
         , bindFn
-        , unbindFn;
+        , unbindFn
+        , event
+        , eventData = {};
 
-      // Params
       element = params.element;
       fn = params.fn;
       scope = params.scope;
+
+      // Event
+      eventData.name = 'scrollstart';
+      eventData.target = element;
+      eventData.start = element[0].scrollTop || 0;
 
       // Unbind function.
       unbindFn = function() {
@@ -181,16 +188,20 @@ angular.module('hg.scrollStop.events', [ ])
       };
 
       // Bind function.
-      bindFn = function(event) {
+      bindFn = function() {
+        eventData.end = element[0].scrollTop;
+
         if (timer) {
           $timeout.cancel(timer);
         } else {
-          fn();
-          scope.$broadcast('scrollstart', event, element);
+          event = new HgEvent(eventData);
+          fn(event);
+          scope.$broadcast(eventData.name, event);
         }
 
         timer = $timeout(function() {
           timer = null;
+          eventData.start = eventData.end;
         }, hgScrollLatency.start);
 
         // Remove the event when scope is destroyed.
@@ -219,12 +230,18 @@ angular.module('hg.scrollStop.events', [ ])
         , scope
         , timer
         , bindFn
-        , unbindFn;
+        , unbindFn
+        , event
+        , eventData = {};
 
       // Params
       element = params.element;
       fn = params.fn;
       scope = params.scope;
+
+      // Event
+      eventData.name = 'scrollstop';
+      eventData.target = element;
 
       // Unbind function.
       unbindFn = function() {
@@ -232,13 +249,17 @@ angular.module('hg.scrollStop.events', [ ])
       };
 
       // Bind function.
-      bindFn = function(event) {
+      bindFn = function() {
         if (timer) $timeout.cancel(timer);
+        eventData.start = eventData.start || element[0].scrollTop;
 
         timer = $timeout(function() {
           timer = null;
-          fn();
-          scope.$broadcast('scrollstop', event, element);
+          eventData.end = element[0].scrollTop;
+          event = new HgEvent(eventData);
+          fn(event);
+          scope.$broadcast(eventData.name, event);
+          eventData.start = null;
         }, hgScrollLatency.stop);
 
         // Remove the event when scope is destroyed.
@@ -248,7 +269,39 @@ angular.module('hg.scrollStop.events', [ ])
       // Kick it off.
       element.bind('scroll', bindFn);
     };
-  }]);
+  }])
+
+  /**
+   * @ngdoc service
+   * @name hg.scrollStop.events:HgEvent
+   *
+   * @description
+   * Event object that is dispatched with scrollstart and scrollstop.
+   *
+   * ```js
+   * {
+   *   name: String, // Event name,
+   *   target: JQLiteElement, // Element of scroll target
+   *   startY: Number, // Start position of the scroll
+   *   endY: Number, // End position of the scroll
+   *   direction: String // Direction user scrolled in
+   * }
+   * ```
+   */
+  .factory('HgEvent', function() {
+    function HgEvent(eventData) {
+      this.name = eventData.name;
+      this.target = eventData.target;
+
+      if (eventData.start !== undefined && eventData.end !== undefined) {
+        this.startY = eventData.start;
+        this.endY = eventData.end;
+        this.direction = this.startY < this.endY ? 'down' : 'up';
+      }
+    }
+
+    return HgEvent;
+  });
 
 /**
  * @ngdoc module
@@ -284,12 +337,13 @@ angular.module('hg.scrollStop.directives', [ ])
   .directive('hgScrollstart', ['$parse', 'hgScrollEvent', function($parse, hgScrollEvent) {
     return {
       restrict: 'A',
-      scope: true,
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstart);
 
-        hgScrollEvent.scrollstart(element, function() {
-          fn(scope);
+        hgScrollEvent.scrollstart(element, function(event) {
+          fn(scope, {
+            event: event
+          });
         });
       }
     };
@@ -324,8 +378,10 @@ angular.module('hg.scrollStop.directives', [ ])
       link: function(scope, element, attributes) {
         var fn = $parse(attributes.hgScrollstop);
 
-        hgScrollEvent.scrollstop(element, function() {
-          fn(scope);
+        hgScrollEvent.scrollstop(element, function(event) {
+          fn(scope, {
+            event: event
+          });
         });
       }
     };

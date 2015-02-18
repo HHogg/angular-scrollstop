@@ -22,7 +22,7 @@ The `hgScrollEvent` service provides two functions; scrollstart and scrollstop. 
 Pass an element as the first argument to attach the scroll event to, and a callback function as the second argument.
 
 ```js
-hgScrollEvent.scrollstop(element, function() {
+hgScrollEvent.scrollstop(element, function(event) {
    //... Callback stuff here.
 });
 ```
@@ -30,7 +30,7 @@ hgScrollEvent.scrollstop(element, function() {
 ... or just pass a callback function and the event will be attached to `$document`
 
 ```js
-hgScrollEvent.scrollstop(function() {
+hgScrollEvent.scrollstop(function(event) {
    //... Callback stuff here.
 });
 ```
@@ -50,7 +50,7 @@ hgScrollEvent.scrollstop();
 Just listen for the event like you would with any other, with the angular event, scroll event, and the attached elment provided in the callback. 
 
 ```js
-($)scope.$on('scrollstop', function(ngEvent, scrollEvent, attachedElement) {
+($)scope.$on('scrollstop', function(event) {
     // ... Stuff here.
 });
 ```
@@ -61,14 +61,27 @@ Two directives are provided to easily use the scrollstop and start events on ele
 
 ### `hg-scrollstart`
 ```html
-<body hg-scrollstart="foo()"></body>
+<body hg-scrollstart="foo(event)"></body>
 ```
 
 ### `hg-scrollstop`
 ```html
-<div hg-scrollstop="bar()"></div>
+<div hg-scrollstop="bar(event)"></div>
 ```
 
+Event object
+-------------
+The event object that is dispatched contains the following information
+
+```js
+{
+   name: String, // Event name,
+   target: JQLiteElement, // Element of scroll target
+   startY: Number, // Start position of the scroll
+   endY: Number, // End position of the scroll
+   direction: String // Direction user scrolled in
+}
+```
 
 Contributions
 -------------
