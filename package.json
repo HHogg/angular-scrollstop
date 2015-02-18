@@ -1,6 +1,6 @@
 {
   "name": "angular-scrollstop",
-  "version": "0.1.2",
+  "version": "1.2.0",
   "description": "AngularJS, scrollstop and scroll start events. Optional directives.",
   "keywords": [
     "angular",
