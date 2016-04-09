@@ -8,7 +8,7 @@ Have a look at both of them in action , [demo here](http://htmlpreview.github.io
 
 #### Install
 Bower: 
-    $ bower install angular-scroll
+`$ bower install angular-scrollstop`
 
 Remeber to add `hg.scrollStop` to your module dependencies :wink: 
 
